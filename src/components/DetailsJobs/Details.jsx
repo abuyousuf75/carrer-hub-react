@@ -1,13 +1,21 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import img1 from '../Images/bg1.png'
 import img2 from '../Images/bg2.png'
 import {MdOutlineAttachMoney} from 'react-icons/md'
+import { saveJobApplication } from "../../utility/Localstorage";
+import { toast } from "react-toastify";
+
+
 const Details = () => {
    const jobs =  useLoaderData();
    const {id} = useParams();
    const jobInt = parseInt(id)
    const job = jobs.find(job => job.id ===jobInt) ;
-   console.log(job.contact_information.address)
+    const handelApplyJob = ()=>{
+       saveJobApplication(jobInt)
+       toast('Sucessfuly applied')
+      
+    }
     return (
         <section className="container">
              <div className="pt-10 pb-10 ">
@@ -47,7 +55,10 @@ const Details = () => {
                         </div>
                     </div>
                    <div className="mt-4">
-                   <button className="w-full px-6 py-3 rounded text-white btn-bg">Apply Now</button>
+                  <Link to='/appliedJobs'>
+                  <button onClick={handelApplyJob} className="w-full px-6 py-3 rounded text-white btn-bg" >Apply Now</button>
+                  </Link>
+            
                    </div>
                 </div>
             </div>
